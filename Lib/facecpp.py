@@ -32,18 +32,33 @@ def upload_img(fileDirList, oneface = True):
     return faceList
 
 def upload_img1(faceId):
-	url = '%s/detect?api_key=%s&api_secret=%s'%(
-                BASE_URL, API_KEY, API_SECRET)
-	files = {"image_file": open(faceId, "rb")}
-	response = requests.post(url, files=files)
-	req_con = response.content.decode('utf-8')
-	req_dict = JSONDecoder().decode(req_con)
-	faces = req_dict['faces']
-	print (faces)
-	faces = faces[0]
-#	print type(faces)
-	face_token = faces['face_token']
-	return face_token
+    url = '%s/detect'%BASE_URL
+    params = BASE_PARAMS
+    files = {"image_file": open(faceId, "rb")}
+    response = requests.post(url, params=params, files = files)
+    req_con = response.content.decode('utf-8')
+    req_dict = JSONDecoder().decode(req_con)
+    faces = req_dict['faces']
+    faces = faces[0]
+    face_token = faces['face_token']
+    return face_token
+
+
+def search(faceId,facesetName):
+    url = '%s/search'%BASE_URL
+    params = {
+        'api_key': API_KEY,
+        'api_secret': API_SECRET,
+        'face_token': faceId,
+        'outer_id':facesetName}
+    response = requests.post(url, params=params)
+    req_con = response.content.decode('utf-8')
+    req_dict = JSONDecoder().decode(req_con)
+    results = req_dict['results']
+    results = results[0]
+    face_token = results['face_token']
+    confidence = results['confidence']
+    return face_token,confidence
 
 def compare(faceId1, faceId2):
     url = '%s/compare'%BASE_URL
@@ -51,7 +66,7 @@ def compare(faceId1, faceId2):
         'api_key': API_KEY,
         'api_secret': API_SECRET,
         'face_token1': faceId1,
-        'face_token2': faceId2}
+        'face_token2':faceId2}
     response = requests.post(url, params=params)
     req_con = response.content.decode('utf-8')
     req_dict = JSONDecoder().decode(req_con)
@@ -67,19 +82,17 @@ def create_faceset(facesetName = None, faceId = []):                         #�
     return json.loads(response.text)['faceset_token']                        #返回FaceSet标志
  
 def delete_faceset(facesetName):
-	url = '%s/faceset/delete'%BASE_URL
-	params = {
+    url = '%s/faceset/delete'%BASE_URL
+    params = {
         'api_key': API_KEY,
         'api_secret': API_SECRET,
-        'outer_id': facesetName,
-        'check_empty': 0}
-	response = requests.post(url, params = params)
-#	return json.loads(response.text)['faceset_token']
+        'outer_id': facesetName}
+    response = requests.post(url, params = params)
 
 def get_faceset_list():
-	url = '%s/faceset/getfacesets'%BASE_URL
-	response = requests.post(url, params = BASE_PARAMS)
-	return json.loads(response.text)['facesets']
+    url = '%s/faceset/getfacesets'%BASE_URL
+    response = requests.post(url, params = BASE_PARAMS)
+    return json.loads(response.text)['facesets']
 
 def get_face_list(facesetName):                                                           #获取一个 FaceSet 的所有face信息
     url = '%s/faceset/getdetail'%BASE_URL
