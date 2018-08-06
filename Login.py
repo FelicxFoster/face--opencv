@@ -36,16 +36,16 @@ def login():
 #			cv2.imwrite(picDir, img)
         cv2.imwrite("/home/lalala/face测试/wt.jpg",img,[int(cv2.IMWRITE_JPEG_QUALITY),80])
         pictureId = upload_img1("/home/lalala/face测试/wt.jpg")
-        break_flag=False
-        while break_flag == False:
-            if len(pictureId) > 0:
-                for x in existFaceName :
-                    for i in x:
-                        print (i)
-                        result = compare(i, pictureId)
-                        if result > 75:
-                            print('Login successfully')
-                            break_flag=True
+        if len(pictureId) > 0:
+            for x in existFaceName :
+                for i in x:
+                    print (i)
+                    result = compare(i, pictureId)
+                    if result > 75:
+                        print('Login successfully')
+                    else:
+                        print('failed')
+        break
     capInput.release()
 
 
