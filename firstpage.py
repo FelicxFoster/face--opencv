@@ -26,7 +26,7 @@ def init():
 def detct():
     while True:
         #当高电平信号输入时报警
-        if GPIO.input(12) == True:
+        if GPIO.output(12,GPIO.HIGH):
             print ("Hello!")
             select = input('What do you want to do?(Set account(s) or Delete account(d) or Log in(l) or exit(q))')
             if select == 'q': 
