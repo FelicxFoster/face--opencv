@@ -44,13 +44,17 @@ def upload_img1(faceId):
     return face_token
 
 def removeface(faceId,facesetName):
-    url = '%s/removeface'%BASE_URL
-    params = {
+	url = '%s/faceset/removeface'%BASE_URL
+	params = {
         'api_key': API_KEY,
         'api_secret': API_SECRET,
-        'face_token': faceId,
+        'face_tokens': faceId,
         'outer_id':facesetName}
-    response = requests.post(url, params=params)
+	response = requests.post(url, params=params)
+#	req_con = response.content.decode('utf-8')
+#	req_dict = JSONDecoder().decode(req_con)
+#	error = req_dict['error_message']
+#	return error
 
 def search(faceId,facesetName):
     url = '%s/search'%BASE_URL
@@ -82,20 +86,25 @@ def compare(faceId1, faceId2):
     return confidence
 
 def create_faceset(facesetName = None, faceId = []):                         #到时候让人输入名字，我再调用为facesetName
-    url = '%s/faceset/create'%BASE_URL
-    params = BASE_PARAMS
-    if not facesetName is None: params['outer_id'] = facesetName
-    if faceId and isinstance(faceId, list): params['face_tokens'] = ','.join(faceId)                    #isinstance(faceId, list)
-    response = requests.post(url, params = params)                                                         #如果faceId是list类型
-    return json.loads(response.text)['faceset_token']                        #返回FaceSet标志
+	url = '%s/faceset/create'%BASE_URL
+	params = BASE_PARAMS
+	if not facesetName is None: params['outer_id'] = facesetName
+	if faceId and isinstance(faceId, list): params['face_tokens'] = ','.join(faceId)                    #isinstance(faceId, list)
+	response = requests.post(url, params = params)                                                         #如果faceId是list类型
+	return json.loads(response.text)['faceset_token']                        #返回FaceSet标志
  
 def delete_faceset(facesetName):
-    url = '%s/faceset/delete'%BASE_URL
-    params = {
+	url = '%s/faceset/delete'%BASE_URL
+	params = {
         'api_key': API_KEY,
         'api_secret': API_SECRET,
-        'outer_id': facesetName}
-    response = requests.post(url, params = params)
+        'outer_id': facesetName,
+		'check_empty':0}
+	response = requests.post(url, params = params)
+#	req_con = response.content.decode('utf-8')
+#	req_dict = JSONDecoder().decode(req_con)
+#	error = req_dict['error_message']
+#	return error
 
 def get_faceset_list():
     url = '%s/faceset/getfacesets'%BASE_URL
@@ -112,10 +121,11 @@ def get_face_list(facesetName):                                                 
     return json.loads(response.text)['face_tokens']                               #返回一个FaceSet里面每个人脸的名字
 
 def add_face(facesetName,faceList):                                            #往一个FaceSet添加face                                                                         
-    url = '%s/faceset/addface'%BASE_URL                                        #这里faceList就是upload_img的返回值
-    params = {
+	url = '%s/faceset/addface'%BASE_URL                                        #这里faceList就是upload_img的返回值
+	params = {
         'api_key': API_KEY,
         'api_secret': API_SECRET,
         'outer_id': facesetName, 
         'face_tokens': faceList }
-    response = requests.post(url, params = params)
+	response = requests.post(url, params = params)
+
