@@ -19,13 +19,18 @@ def login():
 	if not capInput.isOpened(): print('Capture failed because of camera')
 	while 1:
 		ret, img = capInput.read()
-		cv2.imshow('Image',img)
+#		cv2.imshow('Image',img)
 		key = cv2.waitKey(1) & 0xFF
-		face = detect_face(img)
-		if not face:
-			print('No face found')
-		else:
-			cv2.imwrite("/home/lalala/face测试/wt.jpg",img,[int(cv2.IMWRITE_JPEG_QUALITY),80])
+		if key == ord('q'):
+			break
+		elif key == ord(' '):
+			cv2.imshow('Capture Image', img)
+			face = detect_face(img)
+			if not face:
+				print('No face found')
+				break
+			else:
+				cv2.imwrite("/home/lalala/face测试/wt.jpg",img,[int(cv2.IMWRITE_JPEG_QUALITY),80])
 		pictureId = upload_img1("/home/lalala/face测试/wt.jpg")
 		if len(pictureId) > 0:
 			facetoken,confidence = search(pictureId,'gakki')
@@ -43,6 +48,7 @@ def login():
 				print(confidence)
 		break
 	capInput.release()
-	
+
+
 if __name__ == '__main__':
 	login()
