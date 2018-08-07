@@ -42,9 +42,10 @@ def SetAccount():
 		f = open('facedict.pickle','w')
 		pickle.dump(facedict,f)
 		f.close()
-		add_face('gakki', faceIdList)
+		add_face('myface', faceIdList)
 		print('Account [%s] is set'%name)
 		break
 
 if __name__ == '__main__':
 	SetAccount()
+	
