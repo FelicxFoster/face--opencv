@@ -43,3 +43,6 @@ def login():
 				print(confidence)
 		break
 	capInput.release()
+	
+if __name__ == '__main__':
+	login()
