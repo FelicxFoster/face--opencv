@@ -43,6 +43,14 @@ def upload_img1(faceId):
     face_token = faces['face_token']
     return face_token
 
+def removeface(faceId,facesetName):
+    url = '%s/removeface'%BASE_URL
+    params = {
+        'api_key': API_KEY,
+        'api_secret': API_SECRET,
+        'face_token': faceId,
+        'outer_id':facesetName}
+    response = requests.post(url, params=params)
 
 def search(faceId,facesetName):
     url = '%s/search'%BASE_URL
