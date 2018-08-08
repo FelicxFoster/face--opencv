@@ -17,7 +17,7 @@ while 1:
 		removeface(name,'myface')
 #		print(removeface(name,'myface'))
 		print('you have deleted the [%s]'%name)
-        break
+        	break
 	if sure == 'n':
 		break
 
