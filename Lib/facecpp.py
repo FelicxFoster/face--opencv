@@ -99,7 +99,7 @@ def delete_faceset(facesetName):
         'api_key': API_KEY,
         'api_secret': API_SECRET,
         'outer_id': facesetName,
-		'check_empty':0}
+	'check_empty':0}
 	response = requests.post(url, params = params)
 #	req_con = response.content.decode('utf-8')
 #	req_dict = JSONDecoder().decode(req_con)
