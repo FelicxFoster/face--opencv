@@ -21,5 +21,3 @@ while 1:
 	if sure == 'n':
 		break
 
-if __name__ == '__main__':
-	remove()
