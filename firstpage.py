@@ -28,7 +28,7 @@ def detct():
         #当高电平信号输入时报警
         if GPIO.input(12)==True:
             print ("Hello!")
-            select = raw_input('What do you want to do?(Set account(s) or Remove account(r) or Log in(l) or exit(q))')
+            select = input('What do you want to do?(Set account(s) or Remove account(r) or Log in(l) or exit(q))')
             if select == 'q': 
                 break
             if select == 's':
