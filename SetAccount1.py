@@ -3,6 +3,8 @@
 import pickle
 from Lib.facecpp import *
 from Lib.cv2fn import take_picture
+from Smart.person import personlist
+from Smart.person import Person
 
 
 #existFacesetName = [facesets['outer_id'] for facesets in get_faceset_list()]
@@ -15,19 +17,22 @@ else:
 existFaceName=[]
 
 def SetAccount():
+	global personlist
 	while 1:
     
         
 #        print('Here is the list of faceset recorded:\n' +
 #            '\n'.join(['* ' + outer_id for outer_id in existFacesetName]) + '\nEnd of List')
 
-		name = raw_input('What\'s the name of the account you want to set?(q to exit) ')
+		name = input('What\'s the name of the account you want to set?(q to exit) ')
 		if name == 'q': break
 		for k,v in facedict.iteritems():
-			existFaceName.append(existFaceName)
+			existFaceName.append(v)
 		if name in existFaceName:
-			if raw_input('You will overwrite account [%s]?(y/n) '%name) == 'y':
-				delete_faceset(name)
+			key=list(facedict.keys())[list(facedict.values()).index(name)]
+			if input('You will overwrite account [%s]?(y/n) '%name) == 'y':
+				removeface(key,'myface')
+				del facedict[key]
 			else:
 				continue
 
@@ -44,6 +49,8 @@ def SetAccount():
 		f.close()
 		add_face('myface', faceIdList)
 		print('Account [%s] is set'%name)
+		user = Person(name)
+		personlist[name] = user
 		break
 
 if __name__ == '__main__':
