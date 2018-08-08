@@ -26,7 +26,7 @@ def SetAccount():
 
 		name = input('What\'s the name of the account you want to set?(q to exit) ')
 		if name == 'q': break
-		for k,v in facedict.iteritems():
+		for k,v in facedict.items():
 			existFaceName.append(v)
 		if name in existFaceName:
 			key=list(facedict.keys())[list(facedict.values()).index(name)]
