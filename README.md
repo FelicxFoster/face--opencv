@@ -1,12 +1,12 @@
 # face--opencv
 
 # 环境及硬件配置
-  # python3
-  # opencv
-  # numpy
-  # RPi.GPIO
-  # USB摄像头
-  # 人体红外模块
+  #python3
+  #opencv
+  #numpy
+  #RPi.GPIO
+  #USB摄像头
+  #人体红外模块
 
 
 
