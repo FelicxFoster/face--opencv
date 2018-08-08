@@ -26,17 +26,20 @@ def init():
 def detct():
     while True:
         #当高电平信号输入时报警
-        if GPIO.output(12,GPIO.HIGH):
+        if GPIO.input(12)==True:
             print ("Hello!")
-            select = input('What do you want to do?(Set account(s) or Delete account(d) or Log in(l) or exit(q))')
+            select = raw_input('What do you want to do?(Set account(s) or Remove account(r) or Log in(l) or exit(q))')
             if select == 'q': 
                 break
             if select == 's':
-                os.popen('home/lalala/face测试/SetAccount.py')
-            if select == 'd':
-                os.popen('home/lalala/face测试/DeletAccoynt.py')
+#                os.popen('home/lalala/face测试/SetAccount1.py')
+                 os.system('python SetAccount1.py')
+            if select == 'r':
+#                os.popen('home/lalala/face测试/Removeface.py')
+                 os.system('python Removeface.py')
             if select == 'l':
-                os.popen('home/lalala/face测试/Login.py')
+#                os.popen('home/lalala/face测试/Login3.py')
+                 os.system('python Login3.py')
         else:
             continue
         time.sleep(3)
